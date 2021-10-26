@@ -1,0 +1,9 @@
+2021-10-26 01:57:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO USER (DOB,EMAIL,ID_NUMBER,NAME.[*]PASSWORD,PHONE)"; expected ",, )"; SQL statement:
+Insert into USER (DOB,EMAIL,ID_NUMBER,NAME.PASSWORD,PHONE) [42001-200]
+2021-10-26 02:00:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO USER (`DOB`,`EMAIL`,`ID_NUMBER`,`NAME`.[*]`PASSWORD`,`PHONE`) VALUES (""2000-01-01 00:00:00.00"",""myemail@mycompany.not"",""TZ333444555"",""MyName Nobody"",""very_complicated_password"",""054-66666666"")"; expected ",, )"; SQL statement:
+Insert into USER (`dob`,`email`,`id_number`,`name`.`password`,`phone`) values ("2000-01-01 00:00:00.00","myemail@mycompany.not","TZ333444555","MyName Nobody","very_complicated_password","054-66666666") [42001-200]
+2021-10-26 02:02:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO USER (`DOB`,`EMAIL`,`ID_NUMBER`,`NAME`.[*]`PASSWORD`,`PHONE`) VALUES ('2000-01-01 00:00:00.00','myemail@mycompany.not','TZ333444555','MyName Nobody','very_complicated_password','054-66666666')"; expected ",, )"; SQL statement:
+Insert into USER (`dob`,`email`,`id_number`,`name`.`password`,`phone`) values ('2000-01-01 00:00:00.00','myemail@mycompany.not','TZ333444555','MyName Nobody','very_complicated_password','054-66666666') [42001-200]
