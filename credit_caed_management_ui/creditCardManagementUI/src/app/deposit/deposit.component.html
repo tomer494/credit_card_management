@@ -1,0 +1,38 @@
+<div class="container">
+    <div *ngIf="error" class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <p>{{ error }}</p>
+        </div>
+    </div>
+    <div *ngIf="message" class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <p>{{ message }}</p>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <form #depositForm="ngForm" (ngSubmit)="onDeposit(depositForm.value)">
+          <div class="form-group">
+            <input type="hidden" class="form-control" id="user_id" required ngModel name="user_id"/>
+            <input type="hidden" class="form-control" id="card_id" required ngModel name="card_id"/>
+          </div>
+          <div class="form-group">
+            <label for="amount">Deposit amount</label>
+            <input type="number" class="form-control" id="amount" required  ngModel name="amount"/>
+          </div>
+          <button
+            class="btn btn-primary"
+            type="submit"
+          >
+            Deposit
+          </button>
+        </form>
+      </div>
+    </div>
+    <hr />
+    <div *ngIf="balance" class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <p>{{ balance }}</p>
+        </div>
+    </div>
+  </div>
