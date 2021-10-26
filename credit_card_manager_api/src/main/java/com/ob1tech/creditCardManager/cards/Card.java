@@ -13,18 +13,39 @@ import java.util.List;
 public class Card {
 
     @Id
-    @Column(name = "id", nullable = false)
-    @Getter @Setter private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
+    @Setter
+    private Long id;
     @ManyToOne
-    @Getter @Setter private User user;
-    @Getter @Setter private String card_number;
-    @Getter @Setter private Date issue_date;
-    @Getter @Setter private Date last_active;
-    @Getter @Setter private boolean issued;
-    @Getter @Setter private boolean active;
-    @Getter @Setter private double balance;
-    @Getter @Setter private double credit;
+    @Getter
+    @Setter
+    private User user;
+    @Column(name = "cardnumber")
+    @Getter
+    @Setter
+    private String card_number;
+    @Getter
+    @Setter
+    private Date issue_date;
+    @Getter
+    @Setter
+    private Date last_active;
+    @Getter
+    @Setter
+    private boolean issued;
+    @Getter
+    @Setter
+    private boolean active;
+    @Getter
+    @Setter
+    private double balance;
+    @Getter
+    @Setter
+    private double credit;
 
-    @OneToMany(targetEntity=Transaction.class, mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    @Getter @Setter private List<Transaction> transactions;
+    @OneToMany(targetEntity = Transaction.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Getter
+    @Setter
+    private List<Transaction> transactions;
 }

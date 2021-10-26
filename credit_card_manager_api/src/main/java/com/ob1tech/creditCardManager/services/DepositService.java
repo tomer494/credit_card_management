@@ -26,25 +26,25 @@ public class DepositService {
     @Autowired
     private UsersRepository usersRepository;
 
-    private static ConcurrentHashMap<Integer, Object> cardsLock = new ConcurrentHashMap();
+    private static ConcurrentHashMap<Long, Object> cardsLock = new ConcurrentHashMap();
 
-
-    public DepositResponse deposit(Deposit deposit){
+    public DepositResponse deposit(Deposit deposit) {
         DepositResponse depositResponse = new DepositResponse();
         String error = null;
         boolean ok = false;
         boolean abort = false;
-        if(deposit.getAmount() <= 0 ){
+        if (deposit.getAmount() <= 0) {
             error = "Illegal amount! Must deposit more then zero";
             abort = true;
         }
 
-        if(!abort){
+        if (!abort) {
 
-            try{
-                cardsLock.putIfAbsent(deposit.getCard_id(), new Object());
-                synchronized (cardsLock.get(deposit.getCard_id())) {
-                    Optional<Card> cardOpt = cardsRepository.findById(deposit.getCard_id());
+            try {
+                long card_id = Integer.valueOf(deposit.getCard_id()).longValue();
+                cardsLock.putIfAbsent(card_id, new Object());
+                synchronized (cardsLock.get(card_id)) {
+                    Optional<Card> cardOpt = cardsRepository.findById(card_id);
                     if (!cardOpt.isPresent()) {
                         error = "Invalid card id";
                         abort = true;
@@ -58,10 +58,12 @@ public class DepositService {
 
                             final double newBalance = myCard.getBalance() + deposit.getAmount();
                             myCard.setBalance(newBalance);
-
+                            builder.setBalance(newBalance);
+                            builder.setType(TransactionService.TransactionType.DEPOSIT.toString());
                             Transaction transaction = builder.build();
                             transactionsRepository.save(transaction);
                             cardsRepository.save(myCard);
+                            depositResponse.setBalance(newBalance);
                             ok = true;
                         } else {
                             error = "Invalid card. either not issued yet or inactive!";
@@ -69,14 +71,13 @@ public class DepositService {
                         }
                     }
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 log.error("Unexpected error", e);
-                error = "Unexpected error: "+e.getMessage();
+                error = "Unexpected error: " + e.getMessage();
             }
         }
 
-
-        if(error!=null){
+        if (error != null) {
             depositResponse.setErrorMessage("Illegal amount! Must deposit more then zero");
         }
         depositResponse.setOk(ok);

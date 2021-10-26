@@ -11,22 +11,42 @@ import java.util.Date;
 @Entity
 public class Transaction {
     @Id
-    @Column(name = "id", nullable = false)
-    @Getter @Setter private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
+    @Setter
+    private Long id;
 
     @ManyToOne
-    @Getter @Setter private Card card;
+    @Getter
+    @Setter
+    private Card card;
     @ManyToOne
-    @Getter @Setter private User user;
+    @Getter
+    @Setter
+    private User user;
     /**
      * TODO - Allow managment actions on acount
      * private User acting_user;
      */
-    @Getter @Setter private String type;
-    @Getter @Setter private String description;
-    @Getter @Setter private double init_balance;
-    @Getter @Setter private double balance;
-    @Getter @Setter private double init_credit;
-    @Getter @Setter private double credit;
-    @Getter @Setter private Date date;
+    @Getter
+    @Setter
+    private String type;
+    @Getter
+    @Setter
+    private String description;
+    @Getter
+    @Setter
+    private double init_balance;
+    @Getter
+    @Setter
+    private double balance;
+    @Getter
+    @Setter
+    private double init_credit;
+    @Getter
+    @Setter
+    private double credit;
+    @Getter
+    @Setter
+    private Date date;
 }

@@ -3,13 +3,19 @@ package com.ob1tech.creditCardManager;
 import com.ob1tech.creditCardManager.model.Deposit;
 import com.ob1tech.creditCardManager.model.DepositResponse;
 import com.ob1tech.creditCardManager.services.DepositService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
+@RestController
+@CrossOrigin(origins = { "http://localhost:4200" })
 public class CreditCardManagerApplication {
 
 	public static void main(String[] args) {
@@ -26,9 +32,25 @@ public class CreditCardManagerApplication {
 	 * @return CCMResponse with confirmation or error message
 	 */
 	@PostMapping("/api/deposit")
-	public DepositResponse deposit(@RequestBody Deposit deposit){
+	public DepositResponse deposit(@RequestBody Deposit deposit) {
 		// TODO check requester aouthentication
 		return depositService.deposit(deposit);
+	}
+
+	@GetMapping("/api/deposit")
+	public String deposit() {
+		// TODO check requester aouthentication
+		return "Got to deposit!";
+	}
+
+	@GetMapping("/")
+	public String home() {
+		return "Welcome!";
+	}
+
+	@GetMapping("/error")
+	public String error() {
+		return "Hoo Noo!";
 	}
 
 }

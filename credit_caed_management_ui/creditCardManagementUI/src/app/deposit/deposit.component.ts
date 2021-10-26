@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { IDepositApiRequest } from '../data-model/deposit';
+import { Subscription } from 'rxjs';
+import { IDepositApiRequest, IDepositApiResponse } from '../data-model/deposit';
 import { DepositService } from '../services/deposit.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class DepositComponent implements OnInit {
   balance: any;
   message: any;
   amount = 9;
+  subscription: Subscription | undefined;
   
 
   constructor(private depositService: DepositService) { 
@@ -27,17 +29,24 @@ export class DepositComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.subscription = this.depositService.depositResponse
+      .subscribe(
+        (data: IDepositApiResponse) => {
+          console.log('result: '+JSON.stringify(data));
+          if(data.ok) 
+          this.balance = data.balance;
+          else this.error = data.errorMessage;
+          this.message = data.message;
+          console.log('balanse: '+this.balance+', error: '+this.error+', message: '+this.message)
+        }
+      );
   }
 
   onDeposit(depositData: IDepositApiRequest): void {
     depositData.authToken = "SOME_WIERD_STRING";
     depositData.user_id = this.user_id;
     depositData.card_id = this.card_id;
-    this.depositService.deposit(depositData).then((result) => {
-      if(result.actualResponse.ok) this.balance = result.actualResponse.balance;
-      else this.error = result.actualResponse.errorMessage;
-      this.message = result.actualResponse.message;
-    });
+    this.depositService.deposit(depositData);
   }
 
 }

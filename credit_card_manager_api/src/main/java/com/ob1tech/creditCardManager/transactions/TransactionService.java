@@ -15,7 +15,7 @@ public class TransactionService {
         DEPOSIT, WITHDRAW, PAY, BLOCK
     }
 
-    public static class Builder{
+    public static class Builder {
 
         private Card card;
         private User user;
@@ -37,6 +37,7 @@ public class TransactionService {
             this.balance = card.getBalance();
             this.init_credit = card.getCredit();
             this.credit = card.getCredit();
+            this.user = card.getUser();
             return this;
         }
 
@@ -70,7 +71,7 @@ public class TransactionService {
             return this;
         }
 
-        public Transaction build(){
+        public Transaction build() {
             Transaction transaction = new Transaction();
             transaction.setCard(this.card);
             transaction.setType(this.type);
@@ -79,13 +80,13 @@ public class TransactionService {
             transaction.setBalance(this.balance);
             transaction.setInit_credit(this.init_credit);
             transaction.setCredit(this.credit);
-            if(this.date == null){
+            if (this.date == null) {
                 this.date = new Date();
             }
             transaction.setDate(this.date);
+            transaction.setUser(this.user);
             return transaction;
         }
-
 
     }
 }

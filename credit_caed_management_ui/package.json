@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --proxy-config proxy.conf.json"
+  },
   "dependencies": {
     "@ng-bootstrap/ng-bootstrap": "^10.0.0"
   }

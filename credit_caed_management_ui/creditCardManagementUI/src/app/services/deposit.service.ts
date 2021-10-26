@@ -13,7 +13,7 @@ export class DepositService {
 
   url = "http://localhost:8080/api/deposit";
   error = new Subject<string>();
-  depositResponse: any;
+  depositResponse = new Subject<IDepositApiResponse>();
 
   constructor(private http: HttpClient) {}
 
@@ -45,12 +45,13 @@ export class DepositService {
         observe: 'response',
         responseType: 'json',
       }).subscribe((response: HttpResponse<any>) => {
-        return response.body;
+        console.log('body: '+JSON.stringify(body))
+        this.depositResponse.next(response.body);
       },
       error => {
         this.error.next(error.message);
       });
-    })
+    });
   }
 
 }
