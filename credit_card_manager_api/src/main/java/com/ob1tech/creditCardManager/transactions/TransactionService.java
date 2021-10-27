@@ -41,6 +41,11 @@ public class TransactionService {
             return this;
         }
 
+        public Builder setCardData(Card card) {
+            this.card = card;
+            return this;
+        }
+
         public Builder setUser(User user) {
             this.user = user;
             return this;
@@ -56,8 +61,18 @@ public class TransactionService {
             return this;
         }
 
+        public Builder setInitBalance(double init_balance) {
+            this.init_balance = init_balance;
+            return this;
+        }
+
         public Builder setBalance(double balance) {
             this.balance = balance;
+            return this;
+        }
+
+        public Builder setInitCredit(double init_credit) {
+            this.init_credit = init_credit;
             return this;
         }
 

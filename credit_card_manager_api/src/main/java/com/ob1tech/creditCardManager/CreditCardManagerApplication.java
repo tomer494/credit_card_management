@@ -3,6 +3,7 @@ package com.ob1tech.creditCardManager;
 import com.ob1tech.creditCardManager.model.Deposit;
 import com.ob1tech.creditCardManager.model.DepositResponse;
 import com.ob1tech.creditCardManager.services.DepositService;
+import com.ob1tech.creditCardManager.transactions.TransactionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -33,14 +34,8 @@ public class CreditCardManagerApplication {
 	 */
 	@PostMapping("/api/deposit")
 	public DepositResponse deposit(@RequestBody Deposit deposit) {
-		// TODO check requester aouthentication
-		return depositService.deposit(deposit);
-	}
-
-	@GetMapping("/api/deposit")
-	public String deposit() {
-		// TODO check requester aouthentication
-		return "Got to deposit!";
+		deposit.setType(TransactionService.TransactionType.DEPOSIT.toString());
+		return (DepositResponse) depositService.execute(deposit);
 	}
 
 	@GetMapping("/")

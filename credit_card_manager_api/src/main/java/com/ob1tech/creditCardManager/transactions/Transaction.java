@@ -10,6 +10,7 @@ import java.util.Date;
 
 @Entity
 public class Transaction {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
